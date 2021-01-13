@@ -9,29 +9,66 @@ import CategoryPicker from "../../components/CategoryPicker";
 export default class NewStory extends Component {
   state = {
     html: "",
+    loading: false,
+    article: {
+      category: {
+        name: "",
+        img: "",
+      },
+      author: {
+        name: "",
+        img: "",
+      },
+      headLine: "",
+      subHead: "",
+      content: "",
+      cover: "",
+      reviews: [],
+    },
   };
   editor = React.createRef();
-  onChange = (html) => {
-    this.setState({ html })
-    console.log(html)
+
+  updateArticle = (e) => {
+    const article = { ...this.state.article };
+    if (e.currentTarget) {
+      const currentId = e.currentTarget.id;
+      article[currentId] = e.currentTarget.value;
+      this.setState({ article: article });
+    }
   };
+
+  onChange = (html) => {
+    this.setState({ html });
+    console.log(html);
+  };
+
   onKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       this.editor && this.editor.current.focus();
     }
   };
+
   render() {
-    const { html } = this.state;
+    const { article } = this.state;
     return (
       <Container className="new-story-container" expand="md">
         <div className="category-container">
-        <CategoryPicker onChange={(topic)=>{console.log(topic)}} />
+          <CategoryPicker
+            onChange={(topic) => {
+              const newArticle = { ...article };
+              article.category = topic;
+              this.setState({ article: newArticle });
+            }}
+          />
         </div>
         <input
           onKeyDown={this.onKeyDown}
           placeholder="Title"
           className="article-title-input"
+          id="headLine"
+          onChange={this.updateArticle}
+          value={article.headLine}
         />
 
         <ReactQuill
@@ -39,16 +76,20 @@ export default class NewStory extends Component {
           formats={NewStory.formats}
           ref={this.editor}
           theme="bubble"
-          value={html}
-          onChange={this.onChange}
+          value={article.content}
+          onChange={(html) =>
+            this.setState({ article: { ...article, content: html } })
+          }
           placeholder="Tell your story..."
         />
         <input
           onKeyDown={this.onKeyDown}
+          onChange={this.updateArticle}
           placeholder="Cover link e.g : https://picsum.photos/800"
           className="article-cover-input"
+          id="cover"
         />
-       
+
         <Button variant="success" className="post-btn">
           Post
         </Button>
