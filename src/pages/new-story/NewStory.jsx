@@ -10,6 +10,7 @@ export default class NewStory extends Component {
   state = {
     html: "",
     loading: false,
+    error: null,
     article: {
       category: {
         name: "",
@@ -27,6 +28,40 @@ export default class NewStory extends Component {
     },
   };
   editor = React.createRef();
+
+  uploadPost = async (e) => {
+    this.setState({ loading: true });
+    const url = process.env.REACT_APP_BE_URL;
+    console.log(url);
+    const res = await fetch(url + "/articles", {
+      method: "POST",
+      body: JSON.stringify(this.state.article),
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+    });
+
+    if (res.ok) {
+      this.setState({
+        article: {
+          category: {
+            name: "",
+            img: "",
+          },
+          author: {
+            name: "",
+            img: "",
+          },
+          headLine: "",
+          subHead: "",
+          content: "",
+          cover: "",
+          reviews: [],
+        },
+        loading: false,
+      });
+    }
+  };
 
   updateArticle = (e) => {
     const article = { ...this.state.article };
@@ -90,7 +125,11 @@ export default class NewStory extends Component {
           id="cover"
         />
 
-        <Button variant="success" className="post-btn">
+        <Button
+          onClick={this.uploadPost}
+          variant="success"
+          className="post-btn"
+        >
           Post
         </Button>
       </Container>
