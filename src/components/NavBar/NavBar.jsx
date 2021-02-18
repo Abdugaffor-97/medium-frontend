@@ -13,11 +13,11 @@ import {
   IoBookmarksOutline,
   IoSearchOutline,
 } from "react-icons/io5";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 export default class NavBar extends Component {
   render() {
     return (
-      <Navbar  style={{paddingTop:24}}>
+      <Navbar style={{ paddingTop: 24 }}>
         <Container>
           <Navbar.Brand as={Link} to="/">
             <img style={{ height: 54 }} alt="medium-logo" src={logo} />
@@ -28,7 +28,7 @@ export default class NavBar extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              <Nav.Link  as={Link} to="/search">
+              <Nav.Link as={Link} to="/search">
                 <IoSearchOutline style={{ fontSize: 20 }} />
               </Nav.Link>
               <Nav.Link href="#home">
@@ -44,20 +44,25 @@ export default class NavBar extends Component {
                 <Dropdown.Toggle variant="success" as="div">
                   <Image
                     style={{ height: 30 }}
-                    src="https://strive.school/favicon.ico"
+                    src="https://media-exp1.licdn.com/dms/image/C4E03AQGpH7jY8lHsRw/profile-displayphoto-shrink_100_100/0/1612692253182?e=1619049600&v=beta&t=8Et9LsvNJ_RV6P86ITFna03cJCNe2tZi9Yg95BoF01s"
                     roundedCircle
                   />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="/new-story">Write a story</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/new-story">
+                    Write a story
+                  </Dropdown.Item>
                   <Dropdown.Item as={Link} to="/stories">
-                   Stories
+                    Stories
                   </Dropdown.Item>
                   <Dropdown.Item as={Link} to="/stats">
-                   Stats
+                    Stats
                   </Dropdown.Item>
-                  
+                  <Dropdown.Divider />
+                  <Dropdown.Item as={Link} to="/login">
+                    Login
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav>
