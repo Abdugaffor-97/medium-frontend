@@ -1,31 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Login = () => {
-  const [username, setUsrname] = useState("");
   return (
     <div>
-      <form>
-        <label>
-          Username
-          <input type="text" />
-        </label>
-        <label>
-          Surname
-          <input type="text" />
-        </label>
-        <label>
-          Email
-          <input type="email" />
-        </label>
-        <label>
-          password
-          <input type="password" />
-        </label>
-        <label>
-          Confirm password
-          <input type="password" />
-        </label>
-      </form>
+      <a
+        href={process.env.REACT_APP_API_URL + "/users/google-redirect"}
+        className="btn"
+      >
+        Login With Google
+      </a>
     </div>
   );
 };
