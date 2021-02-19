@@ -1,0 +1,10 @@
+.login-wrapper {
+    background-color: adjust-hue($color: #b39c9c, $degrees: 0);
+    // max-width: 90vw;
+    display: flex;
+    
+    .login {
+        max-width: 90vw;
+
+    }
+}
